@@ -3,18 +3,18 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppComponent } from './app.component';
+import { SecdoNgComponent } from './secdo-ng.component';
+import { SecdoNgService } from './secdo-ng.service';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [SecdoNgComponent],
+  exports: [SecdoNgComponent],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [SecdoNgService],
+  bootstrap: [SecdoNgComponent]
 })
-export class AppModule { }
+export class SecdoNgModule { }

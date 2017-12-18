@@ -16,7 +16,7 @@
       "polyfills": "polyfills.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.json",
-      "prefix": "app",
+      "prefix": "secdo-ng",
       "styles": [
         "styles.css"
       ],
@@ -36,7 +36,7 @@
   "lint": [
     {
       "files": "src/**/*.ts",
-      "project": "src/tsconfig.json"
+      "project": "tsconfig.json"
     },
     {
       "files": "e2e/**/*.ts",

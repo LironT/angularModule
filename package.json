@@ -1,14 +1,24 @@
 {
   "name": "angular-module",
   "version": "0.0.0",
-  "license": "MIT",
   "angular-cli": {},
+  "description": "",
+  "main": "secdo-ng.umd.js",
+  "jsnext:main": "secdo-ng.esm.js",
+  "module": "secdo-ng.esm.js",
+  "types": "secdo-ng.d.ts",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "test": "ng test",
     "pree2e": "webdriver-manager update --standalone false --gecko false",
-    "e2e": "protractor"
+    "e2e": "protractor",
+
+    "copy": "node tools/copy-package.js && node tools/cleanup.js",
+    "bundle": "rimraf dist && rollup -c rollup.config.umd.js && rollup -c rollup.config.esm.js && tsc && ngc",
+    "postbundle": "node tools/removecode.js",
+    "build": "npm run bundle && npm run copy",
+    "publish": "cd ./dist && npm publish"
   },
   "private": true,
   "dependencies": {
@@ -41,6 +51,13 @@
     "protractor": "~4.0.13",
     "ts-node": "1.2.1",
     "tslint": "^4.3.0",
-    "typescript": "~2.0.3"
+    "typescript": "~2.0.3",
+    "@angular/compiler": "^4.1.0",
+    "del": "^2.2.2",
+    "node-sass": "^4.5.3",
+    "rollup-plugin-angular": "^0.4.4",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-typescript": "^0.8.1"
   }
 }

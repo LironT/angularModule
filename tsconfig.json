@@ -1,18 +1,22 @@
 {
   "compilerOptions": {
     "baseUrl": "",
-    "declaration": false,
+    "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": ["es6", "dom"],
     "mapRoot": "./",
     "module": "es6",
     "moduleResolution": "node",
-    "outDir": "../dist",
+    "outDir": "./dist",
     "sourceMap": true,
     "target": "es5",
     "typeRoots": [
       "../node_modules/@types"
     ]
-  }
+  },
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": true
+  },
+  "files": ["./src/app/secdo-ng.ts"]
 }
