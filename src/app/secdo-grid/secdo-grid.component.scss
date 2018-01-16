@@ -1,0 +1,220 @@
+$checkbox-top-offset: 1px;  // push checkbox from top of cell
+$checkbox-size: 14px;   // the width and height of a square checkbox
+
+.aggrid-container{
+	position: relative;
+	height: 100%;
+	width: 100%;
+
+	@mixin scrollbar-style() {
+		&::-webkit-scrollbar {
+			width: 9px;
+			height: 9px;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			border-radius: 10px;
+			background-color: #aaafb3;
+			border-color: transparent;
+		}
+
+		&::-webkit-scrollbar-track {
+			border-radius: 10px;
+			background-color: rgb(230, 230, 230);
+			border-color: transparent;
+			margin: 3px;
+		}
+		&::-webkit-scrollbar-corner {
+			background: rgba(141, 141, 143, 0.55);
+		}
+		&:hover {
+			overflow: auto;
+		}
+		& {
+			overflow:hidden;
+		}
+
+		// For IE11
+		scrollbar-base-color: transparent;
+		scrollbar-track-color: transparent;
+		scrollbar-face-color: #aaafb3;
+		scrollbar-arrow-color: #aaafb3;
+	}
+
+	.ag-header{
+
+		min-height: 66px;
+	}
+
+
+
+
+
+	.secdo-aggrid-checkbox-unchecked {
+		background: url(/src/assets/grid/secdo-aggrid-checkbox-unchecked.png) no-repeat;
+		width: $checkbox-size;
+		height: $checkbox-size;
+		margin-top: $checkbox-top-offset;
+		display: inline-block;
+	}
+
+	.secdo-aggrid-checkbox-checked {
+		background: url(/src/assets/grid/secdo-aggrid-checkbox-checked.png) no-repeat;
+		width: $checkbox-size;
+		height: $checkbox-size;
+		margin-top: $checkbox-top-offset;
+		display: inline-block;
+	}
+
+	.secdo-aggrid-checkbox-intermediate {
+		background: url(/src/assets/grid/secdo-aggrid-checkbox-intermediate.png) no-repeat;
+		width: $checkbox-size;
+		height: $checkbox-size;
+		margin-top: $checkbox-top-offset;
+		display: inline-block;
+	}
+
+	.disabled-check-icon{
+		opacity:0.5;
+	}
+
+
+
+
+
+
+
+
+
+
+	.ag-header-cell .ag-selection-checkbox {
+		& + .ag-cell-value:before {
+			width: 14px;
+			height: 14px;
+			border: none !important;
+			background: url(/src/assets/grid/secdo-aggrid-checkbox-unchecked.png) no-repeat !important;
+		}
+		&:checked + .ag-cell-value:before {
+			position: absolute;
+			background: url(/src/assets/grid/secdo-aggrid-checkbox-checked.png) no-repeat !important;
+			width: 14px;
+			height: 14px;
+		}
+	}
+
+	.pretty-ag-grid {
+		.ag-body-viewport {
+			height: calc(100% - 3px);
+		}
+		.ag-header-cell .ag-selection-checkbox {
+			visibility: hidden;
+		}
+		.ag-menu {
+			margin-top: 0;
+		}
+
+		&.ag-fresh .ag-ltr {
+			.ag-cell {
+				padding-top: 12px;
+			}
+			.ag-cell-no-focus {
+				border-right: 1px solid transparent;
+				border-top: 1px solid #e7eef2;
+			}
+			.ag-header-cell {
+				border-right: 1px solid transparent;
+			}
+		}
+		.ag-cell {
+			display: flex;
+			overflow: hidden;
+			& > span {
+				padding-left: 9px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				align-self: center;
+			}
+		}
+		.ag-header-cell-label {
+			line-height: 20px;
+		}
+		.ag-pinned-left-header .ag-header-row {
+			position: relative;
+		}
+	}
+
+	.inner-grid-titles {
+		font-size: 9px;
+		font-weight: bold;
+		letter-spacing: 0.9px;
+		color: #4990e2;
+	}
+	.custom-set-filter-container{
+		max-height: 260px;
+		display: block;
+		position: relative;
+		@include scrollbar-style();
+	}
+
+	.custom-filter-grid{
+		width: 225px;
+		height: auto;
+		display: none;
+		text-align: center;
+		z-index: 1000;
+		position: fixed;
+		border: 1px solid #ddd;
+		white-space: nowrap;
+		font-family: sans-serif;
+		background: #FFF;
+		color: #333;
+		border-radius: 5px;
+		padding: 0;
+		padding-bottom: 25px;
+	}
+	.delete-filter-text {
+		display: block;
+		position: absolute;
+		top: 20px;
+		right: 15px;
+		cursor: pointer;
+		padding: 5px 5px 9px;
+		color: #b3bdc5;
+	}
+	.histogram-icon {
+		background: url(/src/assets/grid/histogram_icon.svg) no-repeat;
+		width: 12px;
+		height: 10px;
+		position: absolute;
+		display: inline-block;
+		top: 8px;
+		right: 40px;
+		cursor: pointer;
+	}
+	.empty_rows_filter {
+		font-size: 10px;
+		color: #00233d;
+		display: block;
+		text-align: left;
+		padding-left: 17px;
+		padding-top: 15px;
+		& > input {
+			margin-right:10px;
+		}
+
+		& >span:first-child {
+			width: 109px;
+			height: 13px;
+			font-size: 9px;
+			font-weight: 800;
+			letter-spacing: 0.9px;
+			color: #c0c1c3;
+			text-transform: uppercase;
+			padding-bottom: 15px;
+			display: inline-block;
+		}
+		& > span.disabled {
+			opacity: 0.5;
+		}
+	}
+}

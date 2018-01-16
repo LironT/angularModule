@@ -1,0 +1,17 @@
+<div class="gird-header-container">
+	<span class="customHeaderLabel">{{params.displayName}}</span>
+	
+	<span [hidden]="!params.enableSorting" class="{{'customSortDownLabel'+ (this.sorted === 'desc' ? ' active' : '') }}" (click)="onSortRequested('desc', $event)">
+		<i class="fa fa-long-arrow-down"></i>
+	</span>
+	<span [hidden]="!params.enableSorting" class="{{'customSortUpLabel'+ (this.sorted === 'asc' ? ' active' : '') }}" (click)="onSortRequested('asc', $event)">
+		<i class="fa fa-long-arrow-up"></i>
+	</span>
+	<!--<span [hidden]="!params.enableSorting" class="{{'customSortRemoveLabel'+ (this.sorted === '' ? ' active' : '') }}" (click)="onSortRequested('', $event)">-->
+		<!--<i class="fa fa-times"></i>-->
+	<!--</span>-->
+	
+	<span *ngIf="params.enableMenu" #menuButton class="customHeaderMenuButton" (click)="onMenuClick()">
+		<i class="{{'fa ' + params.menuIcon}}"></i>
+	</span>
+</div>

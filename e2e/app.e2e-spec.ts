@@ -1,6 +1,6 @@
 import { AngularModulePage } from './app.po';
 
-describe('angular-module App', function() {
+describe('secdo-ng App', function() {
   let page: AngularModulePage;
 
   beforeEach(() => {

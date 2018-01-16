@@ -1,0 +1,30 @@
+<div class="aggrid-container">
+	<dots-loader [showLoader]="loader"></dots-loader>
+	
+	<ag-grid-angular
+		#agGrid
+		style="height: 100%;"
+		class="ag-fresh ag-theme-fresh pretty-ag-grid"
+		
+		[rowData]="rowData"
+		[columnDefs]="_columnDefs"
+		[gridOptions]="gridOptions"
+		
+		[showToolPanel]="showToolPanel"
+		[suppressMenuHide]="true"
+		
+		[enableSorting]="enableSorting"
+		[enableFilter]="enableFilter"
+		[floatingFilter]="false"
+		[enableColResize]="enableColResize"
+		
+		[frameworkComponents]="frameworkComponents"
+		[defaultColDef]="defaultColDef"
+		
+		rowSelection="multiple"
+		
+		(gridReady)="onGridReady($event)"
+		(modelUpdated)="onModelUpdated()"
+		(cellClicked)="onCellClicked($event)">
+	</ag-grid-angular>
+</div>

@@ -1,0 +1,32 @@
+.gird-header-container{
+	&:hover {
+
+	}
+
+	.customHeaderMenuButton{
+		float: right;
+	}
+
+	.customSortRemoveLabel{
+		font-size: 11px;
+	}
+
+	.active {
+		color: #4990E2;
+	}
+
+	.hidden {
+		display:none;
+	}
+}
+
+
+
+
+.ag-header-cell-resize{
+	height: 31%;
+	width: 7px;
+	cursor: col-resize;
+	border-right: 1px solid #4990E2;
+	margin-top: 8px;
+}
