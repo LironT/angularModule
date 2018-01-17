@@ -7,21 +7,21 @@
 		class="ag-fresh ag-theme-fresh pretty-ag-grid"
 		
 		[rowData]="rowData"
+		
+		[icons]="icons"
 		[columnDefs]="_columnDefs"
 		[gridOptions]="gridOptions"
 		
 		[showToolPanel]="showToolPanel"
-		[suppressMenuHide]="true"
 		
 		[enableSorting]="enableSorting"
 		[enableFilter]="enableFilter"
-		[floatingFilter]="false"
 		[enableColResize]="enableColResize"
 		
 		[frameworkComponents]="frameworkComponents"
 		[defaultColDef]="defaultColDef"
 		
-		rowSelection="multiple"
+		[postProcessPopup]="postProcessPopup"
 		
 		(gridReady)="onGridReady($event)"
 		(modelUpdated)="onModelUpdated()"

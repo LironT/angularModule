@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChild, ViewEncapsulation} from "@angular/core";
+import {Component, ElementRef, OnDestroy, ViewChild, ViewEncapsulation} from "@angular/core";
 import {IHeaderAngularComp} from "ag-grid-angular/main";
 import {ParamsHeaderInt} from "./secdo-header.interface";
 
@@ -7,10 +7,10 @@ import {ParamsHeaderInt} from "./secdo-header.interface";
 	styleUrls: ['./secdo-header.component.scss'],
 	encapsulation: ViewEncapsulation.None
 })
-export class HeaderComponent implements IHeaderAngularComp {
+export class HeaderComponent implements OnDestroy, IHeaderAngularComp {
 	public params: ParamsHeaderInt;
 	public sorted: string;
-	private that = this;
+	public isFiltered = false;
 	private elementRef: ElementRef;
 
 	@ViewChild('menuButton', {read: ElementRef}) public menuButton;
@@ -22,6 +22,7 @@ export class HeaderComponent implements IHeaderAngularComp {
 	agInit(params: ParamsHeaderInt): void {
 		this.params = params;
 		this.params.column.addEventListener('sortChanged', this.onSortChanged.bind(this));
+		this.params.column.addEventListener('filterChanged', this.onFilterChanged.bind(this));
 		this.onSortChanged();
 	}
 
@@ -33,6 +34,13 @@ export class HeaderComponent implements IHeaderAngularComp {
 		// this.params.showColumnMenu(this.querySelector('.customHeaderMenuButton'));
 		this.params.showColumnMenu(this.menuButton.nativeElement);
 	}
+
+	onHeaderSortRequested(event) {
+		if (this.params.enableSorting){
+			let order = this.sorted === 'asc' ? 'desc' : 'asc';
+			this.params.setSort(order, event.shiftKey);
+		}
+	};
 
 	onSortRequested(order, event) {
 		this.params.setSort(order, event.shiftKey);
@@ -48,9 +56,12 @@ export class HeaderComponent implements IHeaderAngularComp {
 		}
 	};
 
+	onFilterChanged(params) {
+		this.isFiltered = params.column.filterActive;
+		console.log('params', params);
+	};
 
-	private querySelector(selector: string) {
-		return <HTMLElement>this.elementRef.nativeElement.querySelector(
-			'.customHeaderMenuButton', selector);
-	}
+	// private querySelector(selector: string) {
+	// 	return <HTMLElement>this.elementRef.nativeElement.querySelector('.customHeaderMenuButton', selector);
+	// }
 }

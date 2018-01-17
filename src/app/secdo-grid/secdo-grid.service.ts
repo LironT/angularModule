@@ -5,7 +5,7 @@ import {GridOptions} from "ag-grid";
 export class SecdoGridService {
 	getEmptyGridOptions(): GridOptions{
 		return <GridOptions>{
-			animateRows: true,
+			animateRows: false,
 			enableFilter: true,
 			enableSorting: true,
 			enableColResize: true,
@@ -20,10 +20,12 @@ export class SecdoGridService {
 			// suppressMenuFilterPanel: true,
 			// enableRangeSelection: true,
 			rowSelection: 'multiple',
+			suppressRowClickSelection: true
 			// toolPanelSuppressValues: true,
 			// suppressNoRowsOverlay: true,
 			// toolPanelSuppressRowGroups: true,
 
+			// rowModelType: 'infinite',
 
 			// enableServerSideSorting: true,
 			// enableServerSideFilter: true,
@@ -45,18 +47,29 @@ export class SecdoGridService {
 		};
 	}
 
+	getDefaultIcons(): any {
+		return {
+			sortAscending: '<i class="fa fa-long-arrow-down"/>',
+			sortDescending: '<i class="fa fa-long-arrow-up"/>',
+			checkboxChecked: '<i class="secdo-aggrid-checkbox checked"/>',
+			checkboxUnchecked: '<i class="secdo-aggrid-checkbox unchecked"/>',
+			checkboxIndeterminate: '<i class="secdo-aggrid-checkbox intermediate"/>'
+		};
+	}
+
 	getCheckboxColumn(columnDef): void{
 		const checkboxColumn = {
+			width: 35,
 			headerName: '',
 			field: 'selected',
-			headerCheckboxSelection: true,
-			checkboxSelection: true,
-			width: 30,
 			suppressMenu: true,
 			suppressResize:true,
 			suppressFilter: true,
 			suppressSorting: true,
-			suppressSizeToFit: true
+			suppressSizeToFit: true,
+			checkboxSelection: true,
+			headerCheckboxSelection: true,
+			headerCheckboxSelectionFilteredOnly: true
 		};
 		columnDef.splice(0, 0, checkboxColumn);
 	}

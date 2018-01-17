@@ -1,32 +1,137 @@
-.gird-header-container{
-	&:hover {
+$header-blue: #4990E2;
+$header-blue-light: #B2CCE0;
 
+.aggrid-container {
+	.ag-fresh.pretty-ag-grid {
+		.ag-menu{
+			overflow: visible;
+			border: 1px solid #ddd;
+			white-space: nowrap;
+			background: #FFF;
+			border-radius: 5px;
+
+			.ag-tab-header {
+				display: none;
+			}
+
+			.ag-filter-header-container {
+				margin-bottom: 10px;
+
+				&#ag-mini-filter {
+					border-bottom: none;
+				}
+
+				input[type="text"] {
+					margin-top: 15px;
+					width: 190px;
+					border: 1px solid transparent;
+					border-bottom: 1px solid #e1e1e1;
+					outline: none;
+					font-size: 11px;
+					font-style: italic;
+					height: 20px;
+					padding-left: 0;
+					padding-right: 23px;
+					-webkit-appearance: none;
+					-webkit-border-radius: 0;
+				}
+			}
+
+			.ag-filter-value {
+				font-size: 12px;
+				position: relative;
+				top: -3px;
+			}
+
+			&:after {
+				content: "";
+				background: url(/assets/grid/comment-tip.png) no-repeat;
+				position: absolute;
+				top: -20px;
+				left: 3px;
+				width: 20px;
+				height: 20px;
+				display: block;
+				transform: rotate(-90deg);
+			}
+		}
+
+		.ag-ltr {
+			.ag-header {
+				background: transparent !important;
+
+				.ag-header-row{
+					.ag-header-cell {
+						height: 100%;
+						padding: 20px 10px;
+						border-right: none !important;
+
+						color: $header-blue !important;
+						stroke: none !important;
+						fill: $header-blue !important;
+
+						&:hover {
+							.gird-header-container {
+								.custom-sort {
+									visibility: visible;
+								}
+							}
+						}
+						.gird-header-container{
+							.custom-sort {
+								visibility: hidden;
+								color: $header-blue-light;
+
+								&.visible {
+									visibility: visible;
+								}
+
+								&.active {
+									color: $header-blue;
+								}
+							}
+
+							.customHeaderMenuButton{
+								color: $header-blue-light;
+								cursor: pointer;
+								float: right;
+
+								&.active, &:hover {
+									color: $header-blue;
+								}
+							}
+
+							.customSortRemoveLabel{
+								font-size: 11px;
+							}
+
+							.customHeaderLabel {
+								color: $header-blue;
+								font-size: 9px;
+								font-weight: 700;
+								letter-spacing: 0.9px;
+								line-height: 20px;
+								text-align: left;
+								text-transform: uppercase;
+								white-space: nowrap;
+								float: left;
+								margin-left: 5px;
+							}
+
+							.active {
+								color: $header-blue;
+							}
+						}
+
+						.ag-header-cell-resize {
+							height: 20%;
+							cursor: col-resize;
+							border-right: 1px solid $header-blue;
+							margin-top: 4px;
+						}
+					}
+				}
+			}
+		}
 	}
-
-	.customHeaderMenuButton{
-		float: right;
-	}
-
-	.customSortRemoveLabel{
-		font-size: 11px;
-	}
-
-	.active {
-		color: #4990E2;
-	}
-
-	.hidden {
-		display:none;
-	}
-}
-
-
-
-
-.ag-header-cell-resize{
-	height: 31%;
-	width: 7px;
-	cursor: col-resize;
-	border-right: 1px solid #4990E2;
-	margin-top: 8px;
 }

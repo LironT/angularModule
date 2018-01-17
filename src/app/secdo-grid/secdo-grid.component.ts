@@ -24,6 +24,7 @@ export class SecdoGridComponent {
 	private gridApi;
 	private gridColumnApi;
 
+	icons: any;
 	_columnDefs: any[];
 	loader: boolean;
 	frameworkComponents: any;
@@ -40,6 +41,7 @@ export class SecdoGridComponent {
 	constructor(private secdoGridService: SecdoGridService) {
 		this.frameworkComponents = { agColumnHeader: HeaderComponent };
 		this.gridOptions = secdoGridService.getEmptyGridOptions();
+		this.icons = secdoGridService.getDefaultIcons();
 	}
 
 	onGridReady(params) {
@@ -60,6 +62,44 @@ export class SecdoGridComponent {
 	selectAllRows() {
 		this.gridOptions.api.selectAll();
 	}
+
+	postProcessPopup(params) {
+		switch (params.type){
+			case 'columnMenu':
+				SecdoGridComponent.processColumnMenu(params);
+				break;
+			case 'contextMenu':
+			case 'aggFuncSelect':
+			case 'popupCellEditor':
+				break;
+		}
+
+		// the popup we are showing
+		// ePopup: HTMLElement;
+		//
+		// The different types are: 'contextMenu', 'columnMenu', 'aggFuncSelect', 'popupCellEditor'
+		// type: string;
+		//
+		// if popup is for a column, this gives the Column
+		// column?: Column,
+		//
+		// if popup is for a row, this gives the RowNode
+		// rowNode?: RowNode,
+		//
+		// if the popup is as a result of a button click (eg menu button),
+		// this is the component that the user clicked
+		// eventSource?: HTMLElement;
+	};
+
+	static processColumnMenu(params){
+		const popupHtml = params.ePopup;
+
+		let oldTopStr = popupHtml.style.top;
+		oldTopStr = oldTopStr.substring(0, oldTopStr.indexOf('px'));
+		let oldTop = parseInt(oldTopStr);
+		let newTop = oldTop + 30;
+		popupHtml.style.top = newTop + 'px';
+	}
 }
 
 /*
@@ -71,14 +111,14 @@ export class SecdoGridComponent {
 * this.params.context.componentParent
 *
 * * componentParent is just a name can be anything - myComponenet
-* */
+*/
 
 /*
 * ToDO:
 *
 * 1 filters
-* 2 sort
 * 3 disable row selection to when select all is selected
 * 4 infinite scroll
 *
+* install open sans font
 */

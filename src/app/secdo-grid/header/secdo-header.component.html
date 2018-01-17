@@ -1,17 +1,18 @@
 <div class="gird-header-container">
-	<span class="customHeaderLabel">{{params.displayName}}</span>
+	<span class="customHeaderLabel" (click)="onHeaderSortRequested($event)">
+		{{params.displayName}}
+	</span>
 	
-	<span [hidden]="!params.enableSorting" class="{{'customSortDownLabel'+ (this.sorted === 'desc' ? ' active' : '') }}" (click)="onSortRequested('desc', $event)">
+	<span [hidden]="!params.enableSorting" class="custom-sort" [class.active]="sorted === 'desc'" [class.visible]="params.column.sort"
+				(click)="onSortRequested('desc', $event)">
 		<i class="fa fa-long-arrow-down"></i>
 	</span>
-	<span [hidden]="!params.enableSorting" class="{{'customSortUpLabel'+ (this.sorted === 'asc' ? ' active' : '') }}" (click)="onSortRequested('asc', $event)">
+	<span [hidden]="!params.enableSorting" class="custom-sort" [class.active]="sorted === 'asc'" [class.visible]="params.column.sort"
+				(click)="onSortRequested('asc', $event)">
 		<i class="fa fa-long-arrow-up"></i>
 	</span>
-	<!--<span [hidden]="!params.enableSorting" class="{{'customSortRemoveLabel'+ (this.sorted === '' ? ' active' : '') }}" (click)="onSortRequested('', $event)">-->
-		<!--<i class="fa fa-times"></i>-->
-	<!--</span>-->
 	
-	<span *ngIf="params.enableMenu" #menuButton class="customHeaderMenuButton" (click)="onMenuClick()">
+	<span *ngIf="params.enableMenu" #menuButton [class.active]="isFiltered" class="customHeaderMenuButton" (click)="onMenuClick()">
 		<i class="{{'fa ' + params.menuIcon}}"></i>
 	</span>
 </div>
