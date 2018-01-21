@@ -5,6 +5,17 @@ import {GridOptions} from "ag-grid/main";
 import {SecdoGridService} from "./secdo-grid.service";
 import {HeaderComponent} from "./header/secdo-header.component";
 
+/*
+* in the parent controller gridOptions.context will hold a reference to the parent as follows:
+* this.gridOptions = <GridOptions>{ context: { componentParent: this } };
+*
+* in the child component - the angular components created dynamically in the grid
+* the parent component can then be accessed as follows:
+* this.params.context.componentParent
+*
+* * componentParent is just a name can be anything - myComponenet
+*/
+
 @Component({
 	selector: 'secdo-grid',
 	styleUrls: ['./secdo-grid.component.scss'],
@@ -45,8 +56,7 @@ export class SecdoGridComponent implements OnInit{
 
 	ngOnInit() {
 		this.frameworkComponents = { agColumnHeader: HeaderComponent };
-		this.defaultColDef = { menuTabs: ['filterMenuTab'], headerComponentParams: { menuIcon: 'fa-filter' },
-			filterParams: { apply: true /*, filterOptions: ['contains']*/ } };
+		this.defaultColDef = this.secdoGridService.getDefaultColumn();
 		this.gridOptions = this.secdoGridService.getEmptyGridOptions(this.serverUrl);
 		this.icons = this.secdoGridService.getDefaultIcons();
 	}
@@ -63,30 +73,30 @@ export class SecdoGridComponent implements OnInit{
 	}
 
 	getDataFromServer(params) {
-		this.http.get(this.serverUrl).subscribe(data => {
 			let dataSource = {
 				rowCount: null,
 				getRows: params => {
-					let jsonData = data.json();
-					let rowsThisPage = jsonData.slice(params.startRow, params.endRow);
-					let lastRow = jsonData.length <= params.endRow ? jsonData.length : -1;
-					params.successCallback(rowsThisPage, lastRow);
+					console.log("params.sortModel", params.sortModel);
+					console.log("params.filterModel", params.filterModel);
+					this.http.get(this.serverUrl + `?start=${params.startRow}&end=${params.endRow}`).subscribe(data => {
+						let jsonData = data.json();
+						let rowsThisPage = jsonData.slice(params.startRow, params.endRow);
+						let lastRow = jsonData.length <= params.endRow ? jsonData.length : -1;
+						params.successCallback(rowsThisPage, lastRow);
+					}, error => {
+						this.loader = false;
+					});
 				}
 			};
 
 			params.api.setDatasource(dataSource);
-		}, error => {
-			this.loader = false;
-		});
 	}
 
 	onModelUpdated(){
 		this.loader = false;
 	}
 
-	onCellClicked(row){
-		console.log(row);
-	}
+	onCellClicked(row){}
 
 	selectAllRows() {
 		this.gridOptions.api.selectAll();
@@ -118,23 +128,11 @@ export class SecdoGridComponent implements OnInit{
 }
 
 /*
-* in the parent controller gridOptions.context will hold a reference to the parent as follows:
-* this.gridOptions = <GridOptions>{ context: { componentParent: this } };
-*
-* in the child component - the angular components created dynamically in the grid
-* the parent component can then be accessed as follows:
-* this.params.context.componentParent
-*
-* * componentParent is just a name can be anything - myComponenet
-*/
-
-/*
 * ToDO:
 *
-* 1 filters
-* 3 disable row selection to when select all is selected
-* 4 infinite scroll
+* disable row selection to when select all is selected
 *
 * select alldoesnt work for infinite scroll - allow headerCheckboxSelection is not supported for Infinite Row Model
+*
 * install open sans font
 */

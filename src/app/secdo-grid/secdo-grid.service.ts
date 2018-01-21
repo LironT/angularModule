@@ -19,20 +19,25 @@ export class SecdoGridService {
 			suppressNoRowsOverlay: true,
 
 			rowBuffer: 0,
-			rowModelType: serverUrl ? 'infinite' : 'inMemory',
 			paginationPageSize: 100,
 			cacheOverflowSize: 2,
 			maxConcurrentDatasourceRequests: 2,
 			infiniteInitialRowCount: 1,
 			maxBlocksInCache: 2,
-			enableServerSideSorting: true,
-			enableServerSideFilter: true
+			enableServerSideSorting: !!serverUrl,
+			enableServerSideFilter: !!serverUrl,
+			rowModelType: serverUrl ? 'infinite' : 'inMemory'
+		};
+	}
 
-
-			// getContextMenuItems: openContextMenu,
-			// onSelectionChanged: onSelectionChanged,
-			// processCellForClipboard: AggridService.processCellClipboardHandler,
-			// getRowClass: getRowClassFunc,
+	getDefaultColumn(): any {
+		return {
+			menuTabs: ['filterMenuTab'],
+			headerComponentParams: { menuIcon: 'fa-filter' },
+			filter: 'agTextColumnFilter',
+			filterParams: {
+				apply: true /*, filterOptions: ['contains']*/
+			}
 		};
 	}
 
