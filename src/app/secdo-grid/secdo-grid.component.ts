@@ -1,4 +1,5 @@
-import {Component, Input, ViewEncapsulation} from "@angular/core";
+import {Component, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {Http} from '@angular/http';
 
 import {GridOptions} from "ag-grid/main";
 import {SecdoGridService} from "./secdo-grid.service";
@@ -11,7 +12,7 @@ import {HeaderComponent} from "./header/secdo-header.component";
 	providers: [SecdoGridService],
 	encapsulation: ViewEncapsulation.None
 })
-export class SecdoGridComponent {
+export class SecdoGridComponent implements OnInit{
 	private gridApi;
 	private gridColumnApi;
 
@@ -20,6 +21,8 @@ export class SecdoGridComponent {
 	public loader: boolean;
 	public frameworkComponents: any;
 	public defaultColDef: any;
+
+	@Input() serverUrl: string;
 
 	@Input() gridOptions: GridOptions;
 	@Input() rowData: any[];
@@ -38,12 +41,14 @@ export class SecdoGridComponent {
 		}
 	}
 
-	constructor(private secdoGridService: SecdoGridService) {
+	constructor(private http: Http, private secdoGridService: SecdoGridService) {}
+
+	ngOnInit() {
 		this.frameworkComponents = { agColumnHeader: HeaderComponent };
 		this.defaultColDef = { menuTabs: ['filterMenuTab'], headerComponentParams: { menuIcon: 'fa-filter' },
 			filterParams: { apply: true /*, filterOptions: ['contains']*/ } };
-		this.gridOptions = secdoGridService.getEmptyGridOptions();
-		this.icons = secdoGridService.getDefaultIcons();
+		this.gridOptions = this.secdoGridService.getEmptyGridOptions(this.serverUrl);
+		this.icons = this.secdoGridService.getDefaultIcons();
 	}
 
 	onGridReady(params) {
@@ -51,6 +56,28 @@ export class SecdoGridComponent {
 		this.gridApi = params.api;
 		this.gridColumnApi = params.columnApi;
 		params.api.sizeColumnsToFit();
+
+		if (this.serverUrl) {
+			this.getDataFromServer(params);
+		}
+	}
+
+	getDataFromServer(params) {
+		this.http.get(this.serverUrl).subscribe(data => {
+			let dataSource = {
+				rowCount: null,
+				getRows: params => {
+					let jsonData = data.json();
+					let rowsThisPage = jsonData.slice(params.startRow, params.endRow);
+					let lastRow = jsonData.length <= params.endRow ? jsonData.length : -1;
+					params.successCallback(rowsThisPage, lastRow);
+				}
+			};
+
+			params.api.setDatasource(dataSource);
+		}, error => {
+			this.loader = false;
+		});
 	}
 
 	onModelUpdated(){
@@ -73,28 +100,14 @@ export class SecdoGridComponent {
 			case 'contextMenu':
 			case 'aggFuncSelect':
 			case 'popupCellEditor':
+				// if popup is for a column, this gives the Column column?: Column,
+				// if popup is for a row, this gives the RowNode rowNode?: RowNode,
 				break;
 		}
-
-		// the popup we are showing
-		// ePopup: HTMLElement;
-		//
-		// The different types are: 'contextMenu', 'columnMenu', 'aggFuncSelect', 'popupCellEditor'
-		// type: string;
-		//
-		// if popup is for a column, this gives the Column
-		// column?: Column,
-		//
-		// if popup is for a row, this gives the RowNode
-		// rowNode?: RowNode,
-		//
-		// if the popup is as a result of a button click (eg menu button),
-		// this is the component that the user clicked
-		// eventSource?: HTMLElement;
 	};
 
 	static processColumnMenu(params){
-		const popupHtml = params.ePopup;
+		const popupHtml = params.ePopup;// the popup we are showing ePopup: HTMLElement
 
 		let oldTopStr = popupHtml.style.top;
 		oldTopStr = oldTopStr.substring(0, oldTopStr.indexOf('px'));
@@ -122,5 +135,6 @@ export class SecdoGridComponent {
 * 3 disable row selection to when select all is selected
 * 4 infinite scroll
 *
+* select alldoesnt work for infinite scroll - allow headerCheckboxSelection is not supported for Infinite Row Model
 * install open sans font
 */

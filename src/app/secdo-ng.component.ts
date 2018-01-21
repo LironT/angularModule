@@ -11,8 +11,9 @@ import {gridData} from "./data";
 export class SecdoNgComponent implements OnInit {
   columnDefs: any[] = [];
 	rowData: any = [];
+	serverUrl: string;
 
-  constructor(private http: Http) {}
+  constructor(private http:Http) {}
 
   ngOnInit() {
 		this.columnDefs = [
@@ -28,11 +29,12 @@ export class SecdoNgComponent implements OnInit {
 			{ headerName: 'Total', field: 'total', width: 90 }
 		];
 
-		this.http.get('/api/ag-grid/ag-grid-docs/master/src/olympicWinnersSmall.json')
-			.subscribe(data => {
-				this.rowData = data.json();
-			}, error => {
-				this.rowData = gridData;
-			});
+		this.serverUrl = '/api/ag-grid/ag-grid-docs/master/src/olympicWinners.json';
+		// this.http.get('/api/ag-grid/ag-grid-docs/master/src/olympicWinners.json')
+		// 	.subscribe(data => {
+		// 		this.rowData = data.json();
+		// 	}, error => {
+		// 		this.rowData = gridData;
+		// 	});
 	}
 }

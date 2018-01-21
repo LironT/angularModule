@@ -3,7 +3,7 @@ import {GridOptions} from "ag-grid";
 
 @Injectable()
 export class SecdoGridService {
-	getEmptyGridOptions(): GridOptions{
+	getEmptyGridOptions(serverUrl:string): GridOptions{
 		return <GridOptions>{
 			animateRows: false,
 			enableFilter: true,
@@ -18,9 +18,17 @@ export class SecdoGridService {
 			suppressRowClickSelection: true,
 			suppressNoRowsOverlay: true,
 
-			// rowModelType: 'infinite',
-			// enableServerSideSorting: true,
-			// enableServerSideFilter: true,
+			rowBuffer: 0,
+			rowModelType: serverUrl ? 'infinite' : 'inMemory',
+			paginationPageSize: 100,
+			cacheOverflowSize: 2,
+			maxConcurrentDatasourceRequests: 2,
+			infiniteInitialRowCount: 1,
+			maxBlocksInCache: 2,
+			enableServerSideSorting: true,
+			enableServerSideFilter: true
+
+
 			// getContextMenuItems: openContextMenu,
 			// onSelectionChanged: onSelectionChanged,
 			// processCellForClipboard: AggridService.processCellClipboardHandler,
