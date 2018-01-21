@@ -130,9 +130,5 @@ export class SecdoGridComponent implements OnInit{
 /*
 * ToDO:
 *
-* disable row selection to when select all is selected
-*
 * select alldoesnt work for infinite scroll - allow headerCheckboxSelection is not supported for Infinite Row Model
-*
-* install open sans font
 */

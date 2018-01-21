@@ -43,11 +43,11 @@ export class SecdoGridService {
 
 	getDefaultIcons(): any {
 		return {
-			sortAscending: '<i class="fa fa-long-arrow-down"/>',
-			sortDescending: '<i class="fa fa-long-arrow-up"/>',
-			checkboxChecked: '<i class="secdo-aggrid-checkbox checked"/>',
-			checkboxUnchecked: '<i class="secdo-aggrid-checkbox unchecked"/>',
-			checkboxIndeterminate: '<i class="secdo-aggrid-checkbox intermediate"/>'
+			sortAscending: '<i class="fa fa-long-arrow-down"></i>',
+			sortDescending: '<i class="fa fa-long-arrow-up"></i>',
+			checkboxChecked: '<i class="secdo-aggrid-checkbox checked"></i>',
+			checkboxUnchecked: '<i class="secdo-aggrid-checkbox unchecked"></i>',
+			checkboxIndeterminate: '<i class="secdo-aggrid-checkbox intermediate"></i>'
 		};
 	}
 
