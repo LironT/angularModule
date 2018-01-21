@@ -14,8 +14,8 @@ $header-blue-light: #B2CCE0;
 				display: none;
 			}
 
-			.ag-filter-header-container {
-				margin-bottom: 10px;
+			.ag-filter-header-container, .ag-filter-body, .ag-set-filter-list {
+				padding: 10px;
 
 				&#ag-mini-filter {
 					border-bottom: none;
@@ -23,7 +23,7 @@ $header-blue-light: #B2CCE0;
 
 				input[type="text"] {
 					margin-top: 15px;
-					width: 190px;
+					width: 100%;
 					border: 1px solid transparent;
 					border-bottom: 1px solid #e1e1e1;
 					outline: none;
@@ -35,12 +35,36 @@ $header-blue-light: #B2CCE0;
 					-webkit-appearance: none;
 					-webkit-border-radius: 0;
 				}
+
+				.ag-virtual-list-container {
+					padding-left: 0;
+				}
 			}
 
 			.ag-filter-value {
 				font-size: 12px;
 				position: relative;
 				top: -3px;
+			}
+
+			.ag-filter-select {
+				width: 95%;
+				display: none;
+			}
+
+			.ag-filter-apply-panel {
+				border: none;
+
+				button {
+					font-weight: 600;
+					text-transform: uppercase;
+					color: $header-blue;
+					cursor: pointer;
+					border: none;
+					float: right;
+					margin-top: 10px;
+					margin-bottom: 5px;
+				}
 			}
 
 			&:after {
@@ -63,7 +87,7 @@ $header-blue-light: #B2CCE0;
 				.ag-header-row{
 					.ag-header-cell {
 						height: 100%;
-						padding: 20px 10px;
+						padding: 22px 10px;
 						border-right: none !important;
 
 						color: $header-blue !important;
@@ -77,8 +101,10 @@ $header-blue-light: #B2CCE0;
 								}
 							}
 						}
+
 						.gird-header-container{
 							.custom-sort {
+								cursor: pointer;
 								visibility: hidden;
 								color: $header-blue-light;
 
@@ -101,11 +127,8 @@ $header-blue-light: #B2CCE0;
 								}
 							}
 
-							.customSortRemoveLabel{
-								font-size: 11px;
-							}
-
 							.customHeaderLabel {
+								cursor: pointer;
 								color: $header-blue;
 								font-size: 9px;
 								font-weight: 700;
@@ -115,7 +138,7 @@ $header-blue-light: #B2CCE0;
 								text-transform: uppercase;
 								white-space: nowrap;
 								float: left;
-								margin-left: 5px;
+								margin: 0 5px;
 							}
 
 							.active {

@@ -31,7 +31,6 @@ export class HeaderComponent implements OnDestroy, IHeaderAngularComp {
 	}
 
 	onMenuClick() {
-		// this.params.showColumnMenu(this.querySelector('.customHeaderMenuButton'));
 		this.params.showColumnMenu(this.menuButton.nativeElement);
 	}
 
@@ -49,9 +48,11 @@ export class HeaderComponent implements OnDestroy, IHeaderAngularComp {
 	onSortChanged() {
 		if (this.params.column.isSortAscending()) {
 			this.sorted = 'asc'
-		} else if (this.params.column.isSortDescending()) {
+		}
+		else if (this.params.column.isSortDescending()) {
 			this.sorted = 'desc'
-		} else {
+		}
+		else {
 			this.sorted = ''
 		}
 	};
@@ -60,8 +61,4 @@ export class HeaderComponent implements OnDestroy, IHeaderAngularComp {
 		this.isFiltered = params.column.filterActive;
 		console.log('params', params);
 	};
-
-	// private querySelector(selector: string) {
-	// 	return <HTMLElement>this.elementRef.nativeElement.querySelector('.customHeaderMenuButton', selector);
-	// }
 }

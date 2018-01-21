@@ -16,8 +16,8 @@ export class SecdoNgComponent implements OnInit {
 
   ngOnInit() {
 		this.columnDefs = [
-			{ headerName: 'Athlete', field: 'athlete', cellRendererFramework: RedComponentComponent, filter: 'agTextColumnFilter', filterParams: {apply: true} },
-			{ headerName: 'Age', field: 'age', width: 90, suppressSorting: true, filter: 'agNumberColumnFilter', filterParams: {apply: true} },
+			{ headerName: 'Athlete', field: 'athlete', cellRendererFramework: RedComponentComponent, filter: 'agTextColumnFilter' },
+			{ headerName: 'Age', field: 'age', width: 90, suppressSorting: true, filter: 'agNumberColumnFilter' },
 			{ headerName: 'Country', field: 'country', width: 120, filter: 'agSetColumnFilter', filterParams: { selectAllOnMiniFilter: true } },
 			{ headerName: 'Year', field: 'year', width: 90, suppressSorting: true },
 			{ headerName: 'Date', field: 'date', width: 100, filter: 'agDateColumnFilter', filterParams: { filterOptions: ['inRange'] } },
@@ -28,9 +28,9 @@ export class SecdoNgComponent implements OnInit {
 			{ headerName: 'Total', field: 'total', width: 90 }
 		];
 
-		this.http.get('https://raw.githubusercontent.com/ag-grid/ag-grid-docs/master/src/olympicWinnersSmall.json')
+		this.http.get('/api/ag-grid/ag-grid-docs/master/src/olympicWinnersSmall.json')
 			.subscribe(data => {
-				this.rowData = data;
+				this.rowData = data.json();
 			}, error => {
 				this.rowData = gridData;
 			});

@@ -12,6 +12,15 @@ import {HeaderComponent} from "./header/secdo-header.component";
 	encapsulation: ViewEncapsulation.None
 })
 export class SecdoGridComponent {
+	private gridApi;
+	private gridColumnApi;
+
+	public icons: any;
+	public _columnDefs: any[];
+	public loader: boolean;
+	public frameworkComponents: any;
+	public defaultColDef: any;
+
 	@Input() gridOptions: GridOptions;
 	@Input() rowData: any[];
 
@@ -20,15 +29,6 @@ export class SecdoGridComponent {
 	@Input() enableFilter: boolean = true;
 	@Input() enableColResize: boolean = true;
 	@Input() enableSelection: boolean = true;
-
-	private gridApi;
-	private gridColumnApi;
-
-	icons: any;
-	_columnDefs: any[];
-	loader: boolean;
-	frameworkComponents: any;
-	defaultColDef: any = { menuTabs: ['filterMenuTab'], headerComponentParams: { menuIcon: 'fa-filter' } };
 
 	@Input()
 	set columnDefs(columnDefs: any[]) {
@@ -40,6 +40,8 @@ export class SecdoGridComponent {
 
 	constructor(private secdoGridService: SecdoGridService) {
 		this.frameworkComponents = { agColumnHeader: HeaderComponent };
+		this.defaultColDef = { menuTabs: ['filterMenuTab'], headerComponentParams: { menuIcon: 'fa-filter' },
+			filterParams: { apply: true /*, filterOptions: ['contains']*/ } };
 		this.gridOptions = secdoGridService.getEmptyGridOptions();
 		this.icons = secdoGridService.getDefaultIcons();
 	}
